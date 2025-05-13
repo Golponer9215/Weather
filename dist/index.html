@@ -2,117 +2,86 @@
 <html lang="en">
 <head>
   <!-- This part is like the brain of the page -->
-  <meta charset="UTF-8" /> <!-- Tells computer how to read letters -->
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" /> <!-- Makes it look good on phones too -->
-  <title>Weather App</title> <!-- The name on the browser tab -->
-  
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Weather App</title>
+
   <!-- These are for pretty icons and cool styling -->
   <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet" />
-  <script src="https://cdn.tailwindcss.com"></script> <!-- Tailwind makes things look nice -->
+  <script src="https://cdn.tailwindcss.com"></script>
 </head>
-<body class="bg-[#d7d9ff]"> <!-- Light purple background -->
+<body class="bg-[#d7d9ff]">
 
-<!-- This is the main weather box -->
-<section class="bg-[#16193c] p-6 rounded-2xl mt-8 max-w-md w-full mx-auto space-y-6 shadow-lg">
+  <!-- 🎥 Background video -->
+  <video autoplay muted loop playsinline id="bgVideo" class="fixed top-0 left-0 w-full h-full object-cover z-[-1]">
+    <source src="/dist/assets/2935032-sd_640_360_30fps.mp4" type="video/mp4" />
+  
+  </video>
 
-  <!-- 📦 This top part has a menu and country selector -->
-  <nav class="flex items-center gap-4">
-    <i class='bx bx-menu text-4xl text-white'></i> <!-- Little hamburger menu icon -->
+  <!-- This is the main weather box -->
+  <section class="backdrop:blur-2xl p-6 rounded-2xl mt-8 max-w-md w-full mx-auto space-y-6 shadow-lg">
 
-    <!-- This box lets you pick a country (but doesn't do anything yet) -->
-    <select class="flex-1 px-4 py-2 text-gray-700 bg-white border border-gray-300 rounded-md">
-      <option selected disabled>Select Country</option>
-      <option>United States</option>
-      <option>Canada</option>
-      <option>India</option>
-      <option>Germany</option>
-    </select>
-  </nav>
+    <!-- 📦 This top part has a menu and country selector -->
+    <nav class="flex items-center gap-4">
+      <i class='bx bx-menu text-4xl text-white'></i>
+      <select class="flex-1 px-4 py-2 text-gray-700 bg-white border border-gray-300 rounded-md">
+        <option selected disabled>Select Country</option>
+        <option>United States</option>
+        <option>Canada</option>
+        <option>India</option>
+        <option>Germany</option>
+      </select>
+    </nav>
 
-  <!-- 🔍 This is where you type the city name to check the weather -->
-  <form class="flex gap-2" onsubmit="getWeather(); return false;">
-    <!-- The box where you type the city like "Nairobi" -->
-    <input id="city" type="text" placeholder="Search..." class="flex-1 h-10 px-3 rounded-md border border-black" />
-    
-    <!-- The little button with a magnifying glass that says "Go!" -->
-    <button type="submit" class="h-10 w-10 bg-white border border-black rounded-md flex items-center justify-center">
-      <img src="/dist/assets/search-glass-magnifying-svgrepo-com.svg" alt="Search" width="20" />
-    </button>
-  </form>
+    <!-- Search city form -->
+    <form class="flex gap-2" onsubmit="getWeather(); return false;">
+      <input id="city" type="text" placeholder="Search..." class="flex-1 h-10 px-3 rounded-md border border-black" />
+      <button type="submit" class="h-10 w-10 bg-white border border-black rounded-md flex items-center justify-center">
+        <img src="/dist/assets/search-glass-magnifying-svgrepo-com.svg" alt="Search" width="20" />
+      </button>
+    </form>
 
-  <!-- 🖼️ This is a picture and temperature that's always shown -->
-  <div class="text-center">
-    <img src="/dist/assets/WhatsApp_Image_2025-05-11_at_7.28.53_AM-removebg-preview.png" alt="Weather" class="w-40 mx-auto bg-[#313453]" />
-    <h1 class="text-white font-bold text-lg mt-2">Wednesday, 23 May</h1>
-    <p class="text-white font-extrabold text-6xl">19<sup class="text-2xl -top-3 relative">°</sup></p>
-  </div>
-
-  <!-- 🌧️ 🌬️ 💧 These 3 boxes show rain, wind, and humidity -->
-  <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 text-center">
-    <div>
-      <img src="/dist/assets/WhatsApp_Image_2025-05-11_at_7.28.53mM-removebg-preview.png" class="w-20 mx-auto rounded-2xl border border-white bg-[#1c1e47]" alt="Rain" />
-      <p class="text-white font-extrabold mt-2">90%</p>
-      <p class="text-white">Rain</p>
+    <!-- Current weather display -->
+    <div class="text-center">
+      <img src="/dist/assets/WhatsApp_Image_2025-05-11_at_7.28.53_AM-removebg-preview.png" alt="Weather" class="w-40 mx-auto " />
+      <h1 class="text-white font-bold text-lg mt-2">Wednesday, 23 May</h1>
+      <p class="text-white font-extrabold text-6xl">19<sup class="text-2xl -top-3 relative">°</sup></p>
     </div>
 
-    <div>
-      <img src="/dist/assets/WhatsApp_Image_2025-05-11_at_7.28.54_fM-removebg-preview.png" class="w-20 mx-auto rounded-2xl border border-white bg-[#1c1e47]" alt="Wind" />
-      <p class="text-white font-extrabold mt-2">7kh/h</p>
-      <p class="text-white">Wind</p>
-    </div>
+  
 
-    <div>
-      <img src="/dist/assets/WhatsApp_Image_2025-05-11_at_7.28.54_AM-removebg-preview.png" class="w-20 mx-auto rounded-2xl border border-white bg-[#1c1e47]" alt="Humidity" />
-      <p class="text-white font-extrabold mt-2">21%</p>
-      <p class="text-white">Humidity</p>
-    </div>
-  </div>
+    <!-- 📋 Real-time weather info goes here -->
+    <div id="weather" class="text-white mt-6 text-center"></div>
 
-  <!-- 📋 This empty box will fill up with real weather info when you search -->
-  <div id="weather" class="text-white mt-6 text-center"></div>
+  </section>
 
-</section>
+  <!-- 📜 JavaScript for weather API -->
+  <script>
+    async function getWeather() {
+      const city = document.getElementById('city').value;
+      const apiKey = '42ef5c5b16905a9e3c2527995eda378c';
+      const url = `https://api.openweathermap.org/data/2.5/weather?q=${city}&units=metric&appid=${apiKey}`;
 
-<!-- 📜 This is the magic JavaScript that talks to the weather website -->
-<script>
-  async function getWeather() {
-    // Get the name you typed in
-    const city = document.getElementById('city').value;
+      try {
+        const response = await fetch(url);
+        if (!response.ok) throw new Error("City not found");
 
-    // This is your special key to get the weather (like a secret password)
-    const apiKey = '42ef5c5b16905a9e3c2527995eda378c';
+        const data = await response.json();
 
-    // Make a URL to ask for the weather in your city
-    const url = `https://api.openweathermap.org/data/2.5/weather?q=${city}&units=metric&appid=${apiKey}`;
+        const weatherInfo = `
+          <h2 class="text-xl font-bold mt-4">Weather in ${data.name}</h2>
+          <p class="mt-2"><strong>🌡️ Temp:</strong> ${data.main.temp}°C</p>
+          <p><strong>🌥️ Condition:</strong> ${data.weather[0].main} (${data.weather[0].description})</p>
+          <p><strong>💧 Humidity:</strong> ${data.main.humidity}%</p>
+          <p><strong>🌬️ Wind:</strong> ${data.wind.speed} km/h</p>
+        `;
+        document.getElementById('weather').innerHTML = weatherInfo;
 
-    try {
-      // Send the request and wait for the weather to come back
-      const response = await fetch(url);
-
-      // If the city is not found, show an error
-      if (!response.ok) {
-        throw new Error("City not found");
+      } catch (error) {
+        document.getElementById('weather').innerHTML = `<p style="color: red;">${error.message}</p>`;
       }
-
-      // Convert the answer to a readable format
-      const data = await response.json();
-
-      // Show the weather on the screen
-      const weatherInfo = `
-        <h2 class="text-xl font-bold mt-4">Weather in ${data.name}</h2>
-        <p class="mt-2"><strong>🌡️ Temp:</strong> ${data.main.temp}°C</p>
-        <p><strong> Condition:</strong> ${data.weather[0].main} (${data.weather[0].description})</p>
-        <p><strong>Humidity:</strong> ${data.main.humidity}%</p>
-        <p><strong> Wind:</strong> ${data.wind.speed} km/h</p>
-      `;
-      document.getElementById('weather').innerHTML = weatherInfo;
-
-    } catch (error) {
-      // If something goes wrong, show the message in red
-      document.getElementById('weather').innerHTML = `<p style="color: red;">${error.message}</p>`;
     }
-  }
-</script>
+  </script>
 
 </body>
 </html>
